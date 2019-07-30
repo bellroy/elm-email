@@ -13,7 +13,7 @@ This list is taken and extended from <https://en.wikipedia.org/wiki/Email_addres
 validEmailAddresses : List String
 validEmailAddresses =
     [ "simple@example.com"
-    , "simple@example.com.au"
+    , "Simple@example.com.au"
     , "very.common@example.com"
     , "disposable.style.email.with+symbol@example.com"
     , "other.email-with-hyphen@example.com"
@@ -101,7 +101,6 @@ suite =
                             , tags = [ "tag", "tag2" ]
                             , domain = "gmail"
                             , tld = [ "com" ]
-                            , comments = []
                             }
                         )
                 )
