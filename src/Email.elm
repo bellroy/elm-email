@@ -1,11 +1,8 @@
-module Email exposing
-    ( Email
-    , fromString
-    )
+module Email exposing (Email, fromString, toString)
 
 {-|
 
-@docs Email
+@docs Email, fromString, toString
 
 -}
 
@@ -45,6 +42,7 @@ toString { localPart, tags, domain, tld } =
                 "+" ++ String.join "+" tags
         , "@"
         , domain
+        , "."
         , String.join "." tld
         ]
 

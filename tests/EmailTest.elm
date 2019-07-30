@@ -1,6 +1,6 @@
 module EmailTest exposing (suite)
 
-import Email exposing (fromString)
+import Email exposing (fromString, toString)
 import Expect exposing (..)
 import Test exposing (..)
 
@@ -91,6 +91,19 @@ suite =
                                     Expect.pass
                 )
                 invalidEmailAddresses
+        , describe "Email - toString" <|
+            List.map
+                (\a ->
+                    test ("Email - Parse and then render as string (" ++ a ++ ")") <|
+                        \_ ->
+                            case fromString a of
+                                Just email ->
+                                    Expect.equal a <| toString email
+
+                                Nothing ->
+                                    Expect.fail (a ++ " is a valid email address but it has failed parsing.")
+                )
+                validEmailAddresses
         , describe "Email - Manual Examples"
             [ test "Parses tags"
                 (\_ ->
