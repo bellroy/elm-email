@@ -16,10 +16,9 @@ import Parser exposing (..)
 -}
 type alias Email =
     { localPart : String
+    , tags : List String
     , domain : String
     , tld : List String
-    , tags : List String
-    , comments : List String
     }
 
 
@@ -70,14 +69,7 @@ parseEmail =
                 )
     in
     succeed
-        (\localPart tags domain tlds ->
-            { localPart = localPart
-            , domain = domain
-            , tld = tlds
-            , tags = tags
-            , comments = []
-            }
-        )
+        Email
         |= parseLocalPart
         |= split '+' parseLocalPart
         |. symbol "@"
