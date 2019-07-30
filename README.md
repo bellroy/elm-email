@@ -20,16 +20,14 @@ parsedEmail: Maybe Email
 parsedEmail =
     Email.fromString "simple+tag@example.com.au"
 
+-- Result
 
-```
-
-Result
-```elm
-  { localPart = "simple"
-  , tags = [ "tag" ]
-  , domain = "example"
-  , tld = [ "com", "au"]
-  }
+  Just
+    { localPart = "simple"
+    , tags = [ "tag" ]
+    , domain = "example"
+    , tld = [ "com", "au"]
+    }
 
 ```
 
