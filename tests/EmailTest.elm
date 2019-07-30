@@ -39,7 +39,8 @@ invalidEmailAddresses =
       "Abc.example.com"
 
     -- only one @ is allowed outside quotation marks
-    -- , "A@b@c@example.com"
+    , "A@b@c@example.com"
+
     -- none of the special characters in this local-part are allowed outside quotation marks
     , "a\"b(c)d,e:f;g<h>i[j\\k]l@example.com"
 
@@ -53,7 +54,7 @@ invalidEmailAddresses =
     , "this\\ still\"not\\allowed@example.com"
 
     -- local part is longer than 64 characters
-    -- , "1234567890123456789012345678901234567890123456789012345678901234+x@example.com"
+    , "1234567890123456789012345678901234567890123456789012345678901234+x@example.com"
     ]
 
 
@@ -79,7 +80,11 @@ suite =
                     test ("Email - Invalid Email (" ++ a ++ ")") <|
                         \_ ->
                             case fromString a of
-                                Just _ ->
+                                Just b ->
+                                    let
+                                        _ =
+                                            Debug.log "Email" b
+                                    in
                                     Expect.fail (a ++ " is an invalid email address but it succeeded parsing.")
 
                                 Nothing ->

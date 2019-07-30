@@ -57,15 +57,25 @@ toString { localPart, tags, domain, tld } =
 parseEmail : Parser Email
 parseEmail =
     succeed
-        (\localPart domain tlds ->
+        (\localPart tags domain tlds ->
             { localPart = localPart
             , domain = domain
             , tld = tlds
-            , tags = []
+            , tags = tags
             , comments = []
             }
         )
         |= parseLocalPart
+        |= loop []
+            (\r ->
+                oneOf
+                    [ succeed (\tld -> Loop (tld :: r))
+                        |. symbol "+"
+                        |= parseLocalPart
+                    , succeed ()
+                        |> map (\_ -> Done (List.reverse r))
+                    ]
+            )
         |. symbol "@"
         |= parseDomain
         |= loop []
@@ -87,7 +97,6 @@ parseLocalPart =
         |. chompWhile
             (\a ->
                 Char.isAlphaNum a
-                    || (a == '+')
                     || (a == '.')
                     || (a == '-')
             )
@@ -115,13 +124,11 @@ parseTld =
                     || Char.isLower a
             )
         |> getChompedString
-        |> andThen validateTld
+        |> andThen
+            (\a ->
+                if String.length a >= 2 then
+                    succeed a
 
-
-validateTld : String -> Parser String
-validateTld string =
-    if String.length string >= 2 then
-        succeed string
-
-    else
-        problem "Tld needs to be at least 2 chars long."
+                else
+                    problem "Tld needs to be at least 2 chars long."
+            )
