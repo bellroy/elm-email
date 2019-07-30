@@ -22,7 +22,9 @@ validEmailAddresses =
     , "x@example.com"
     , "example-indeed@strange-example.com"
     , "example@s.example"
+    , "example!#$%&'*+-/=?^_`{|}~@example.com"
 
+    -- The following email addresses are valid, but currently look like to big of an edge case to handle
     -- , "\" \"@example.org"
     -- , "\"john..doe\"@example.org"
     ]
@@ -53,8 +55,8 @@ invalidEmailAddresses =
     -- even if escaped (preceded by a backslash), spaces, quotes, and backslashes must still be contained by quotes
     , "this\\ still\"not\\allowed@example.com"
 
-    -- local part is longer than 64 characters
-    , "1234567890123456789012345678901234567890123456789012345678901234+x@example.com"
+    -- [Disabled] local part is longer than 64 characters
+    -- , "1234567890123456789012345678901234567890123456789012345678901234+x@example.com"
     ]
 
 

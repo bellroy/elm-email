@@ -81,9 +81,10 @@ parseLocalPart =
     succeed ()
         |. chompWhile
             (\a ->
-                Char.isAlphaNum a
-                    || (a == '.')
-                    || (a == '-')
+                (a /= '+')
+                    && (a /= '@')
+                    && (a /= '\\')
+                    && (a /= '"')
             )
         |> getChompedString
 
@@ -93,10 +94,13 @@ parseDomain =
     succeed ()
         |. chompWhile
             (\a ->
-                Char.isAlphaNum a
+                (Char.isAlphaNum a
                     || (a == '-')
+                )
+                    && (a /= '@')
+                    && (a /= '.')
             )
-        |. chompUntil "."
+        -- |. chompUntil "."
         |> getChompedString
 
 
