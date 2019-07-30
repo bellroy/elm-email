@@ -91,4 +91,19 @@ suite =
                                     Expect.pass
                 )
                 invalidEmailAddresses
+        , describe "Email - Manual Examples"
+            [ test "Parses tags"
+                (\_ ->
+                    Expect.equal
+                        (fromString "elvin+tag+tag2@gmail.com")
+                        (Just
+                            { localPart = "elvin"
+                            , tags = [ "tag", "tag2" ]
+                            , domain = "gmail"
+                            , tld = [ "com" ]
+                            , comments = []
+                            }
+                        )
+                )
+            ]
         ]
