@@ -56,6 +56,19 @@ toString { localPart, tags, domain, tld } =
 
 parseEmail : Parser Email
 parseEmail =
+    let
+        split char parser =
+            loop []
+                (\r ->
+                    oneOf
+                        [ succeed (\tld -> Loop (tld :: r))
+                            |. symbol (String.fromChar char)
+                            |= parser
+                        , succeed ()
+                            |> map (\_ -> Done (List.reverse r))
+                        ]
+                )
+    in
     succeed
         (\localPart tags domain tlds ->
             { localPart = localPart
@@ -66,28 +79,10 @@ parseEmail =
             }
         )
         |= parseLocalPart
-        |= loop []
-            (\r ->
-                oneOf
-                    [ succeed (\tld -> Loop (tld :: r))
-                        |. symbol "+"
-                        |= parseLocalPart
-                    , succeed ()
-                        |> map (\_ -> Done (List.reverse r))
-                    ]
-            )
+        |= split '+' parseLocalPart
         |. symbol "@"
         |= parseDomain
-        |= loop []
-            (\r ->
-                oneOf
-                    [ succeed (\tld -> Loop (tld :: r))
-                        |. symbol "."
-                        |= parseTld
-                    , succeed ()
-                        |> map (\_ -> Done (List.reverse r))
-                    ]
-            )
+        |= split '.' parseTld
         |. end
 
 
