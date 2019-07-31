@@ -24,8 +24,13 @@ type alias Email =
 fromString :
     String
     -> Maybe Email
-fromString =
-    Result.toMaybe << run parseEmail
+fromString string =
+    case run parseEmail string of
+        Ok result ->
+            result
+
+        _ ->
+            Nothing
 
 
 {-| Render Email to a String
@@ -51,7 +56,7 @@ toString { localPart, tags, domain, tld } =
 -- Parser
 
 
-parseEmail : Parser Email
+parseEmail : Parser (Maybe Email)
 parseEmail =
     let
         split char parser =
@@ -67,7 +72,33 @@ parseEmail =
                 )
     in
     succeed
-        Email
+        (\localPart tags domain tlds ->
+            let
+                fullLocalPart =
+                    String.join ""
+                        [ localPart
+                        , case tags of
+                            [] ->
+                                ""
+
+                            _ ->
+                                "+" ++ String.join "+" tags
+                        ]
+            in
+            if String.length fullLocalPart > 64 then
+                Nothing
+
+            else if List.length tlds < 1 then
+                Nothing
+
+            else
+                Just
+                    { localPart = localPart
+                    , tags = tags
+                    , domain = domain
+                    , tld = tlds
+                    }
+        )
         |= parseLocalPart
         |= split '+' parseLocalPart
         |. symbol "@"

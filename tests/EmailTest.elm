@@ -43,6 +43,9 @@ invalidEmailAddresses =
     -- no domain
     , "Abc@"
 
+    -- no top level domain
+    , "Abc@domain"
+
     -- only one @ is allowed outside quotation marks
     , "A@b@c@example.com"
 
@@ -59,7 +62,7 @@ invalidEmailAddresses =
     , "this\\ still\"not\\allowed@example.com"
 
     -- [Disabled] local part is longer than 64 characters
-    -- , "1234567890123456789012345678901234567890123456789012345678901234+x@example.com"
+    , "1234567890123456789012345678901234567890123456789012345678901234+x@example.com"
     ]
 
 
