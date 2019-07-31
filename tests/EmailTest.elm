@@ -40,6 +40,9 @@ invalidEmailAddresses =
     [ -- no @ character
       "Abc.example.com"
 
+    -- no domain
+    , "Abc@"
+
     -- only one @ is allowed outside quotation marks
     , "A@b@c@example.com"
 

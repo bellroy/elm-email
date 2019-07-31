@@ -102,6 +102,14 @@ parseDomain =
             )
         -- |. chompUntil "."
         |> getChompedString
+        |> andThen
+            (\a ->
+                if String.length a < 1 then
+                    problem "Domain has to be atleast 1 character long."
+
+                else
+                    succeed a
+            )
 
 
 parseTld : Parser String
@@ -119,5 +127,5 @@ parseTld =
                     succeed a
 
                 else
-                    problem "Tld needs to be at least 2 chars long."
+                    problem "Tld needs to be at least 2 character long."
             )
