@@ -23,6 +23,7 @@ validEmailAddresses =
     , "example-indeed@strange-example.com"
     , "example@s.example"
     , "example!#$%&'*+-/=?^_`{|}~@example.com"
+    , "ab.c@example.com"
 
     -- The following email addresses are valid, but currently look like to big of an edge case to handle
     -- , "\" \"@example.org"
@@ -69,6 +70,9 @@ invalidEmailAddresses =
 
     -- dot (.) can't be the first or last character unless quoted.
     , "abc.@example.com"
+
+    -- There can only be one dot (.) a time
+    , "ab..c@example.com"
     ]
 
 

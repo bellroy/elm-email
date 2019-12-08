@@ -120,8 +120,8 @@ parseLocalPart =
         |> getChompedString
         |> andThen
             (\localPart ->
-                if String.startsWith "." localPart || String.endsWith "." localPart then
-                    problem "localPart can't start or end with a dot"
+                if String.startsWith "." localPart || String.endsWith "." localPart || String.indexes ".." localPart /= [] then
+                    problem "localPart can't start or end with a dot, nor can there be double dots"
 
                 else
                     succeed localPart
