@@ -1,8 +1,8 @@
 module EmailTest exposing (suite)
 
 import Email exposing (fromString, toString)
-import Expect exposing (..)
-import Test exposing (..)
+import Expect
+import Test exposing (Test, describe, test)
 
 
 {-| Valid email addresses
@@ -23,6 +23,7 @@ validEmailAddresses =
     , "example-indeed@strange-example.com"
     , "example@s.example"
     , "example!#$%&'*+-/=?^_`{|}~@example.com"
+    , "ab.c@example.com"
 
     -- The following email addresses are valid, but currently look like to big of an edge case to handle
     -- , "\" \"@example.org"
@@ -63,6 +64,15 @@ invalidEmailAddresses =
 
     -- [Disabled] local part is longer than 64 characters
     , "1234567890123456789012345678901234567890123456789012345678901234+x@example.com"
+
+    -- dot (.) can't be the first or last character unless quoted.
+    , ".abc@example.com"
+
+    -- dot (.) can't be the first or last character unless quoted.
+    , "abc.@example.com"
+
+    -- There can only be one dot (.) a time
+    , "ab..c@example.com"
     ]
 
 
@@ -89,10 +99,6 @@ suite =
                         \_ ->
                             case fromString a of
                                 Just b ->
-                                    let
-                                        _ =
-                                            Debug.log "Email" b
-                                    in
                                     Expect.fail (a ++ " is an invalid email address but it succeeded parsing.")
 
                                 Nothing ->
