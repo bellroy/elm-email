@@ -1,25 +1,24 @@
 name: Node CI
 
-on: [push]
+on:
+  pull_request:
+  push:
+    branches:
+      - master
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [10.x]
-
     steps:
     - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+
+    - run: npm ci
+    - uses: ./
       with:
-        node-version: ${{ matrix.node-version }}
-    - name: install elm, elm-test and run elm-test
-      run: |
-        npm i -g elm elm-test
-        elm-test
+        elm-version: 0.19.1
+        elm-test: 0.19.1-revision2
+        
+    - name: run elm-test
+      run: elm-test
       env:
         CI: true
