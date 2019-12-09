@@ -1,6 +1,10 @@
-name: Node CI
+name: Elm Test
 
-on: [push]
+on:
+  pull_request:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
