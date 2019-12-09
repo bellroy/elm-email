@@ -29,9 +29,4 @@ parsedEmail =
     , tld = [ "com", "au"]
     }
 
-```
-
-
-# ToDo
-
-- [ ] Make all the specs work
+ ```
