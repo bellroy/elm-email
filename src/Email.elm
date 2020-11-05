@@ -157,6 +157,7 @@ parseTld =
             (\a ->
                 Char.isUpper a
                     || Char.isLower a
+                    || (a == '-')
             )
         |> getChompedString
         |> andThen
