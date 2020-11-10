@@ -2,6 +2,10 @@
 
 Parses email addresses safely
 
+# Demo
+
+A demo can be found on: [https://tricycle.github.io/elm-email/](https://tricycle.github.io/elm-email/)
+
 # Motivation
 
 Validating email addresses using Regex is a pain.
