@@ -24,6 +24,7 @@ validEmailAddresses =
     , "example@s.example"
     , "example!#$%&'*+-/=?^_`{|}~@example.com"
     , "ab.c@example.com"
+    , "simple@com.plex-domain.org"
 
     -- The following email addresses are valid, but currently look like to big of an edge case to handle
     -- , "\" \"@example.org"
