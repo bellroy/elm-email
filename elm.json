@@ -3,7 +3,7 @@
     "name": "tricycle/elm-email",
     "summary": "Parse email addresses safely",
     "license": "BSD-3-Clause",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "exposed-modules": [
         "Email"
     ],
