@@ -21,9 +21,7 @@ type alias Email =
 
 {-| Parse an Email address from a String
 -}
-fromString :
-    String
-    -> Maybe Email
+fromString : String -> Maybe Email
 fromString string =
     case run parseEmail string of
         Ok result ->
@@ -122,6 +120,9 @@ parseLocalPart =
             (\localPart ->
                 if String.startsWith "." localPart || String.endsWith "." localPart || String.indexes ".." localPart /= [] then
                     problem "localPart can't start or end with a dot, nor can there be double dots"
+
+                else if String.trim localPart /= localPart then
+                    problem "localPart can't be wrapped with whitespace"
 
                 else
                     succeed localPart

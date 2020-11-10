@@ -74,6 +74,15 @@ invalidEmailAddresses =
 
     -- There can only be one dot (.) a time
     , "ab..c@example.com"
+
+    -- There can't be a space at the end of the local part
+    , "ab @example.com"
+
+    -- There can't be a space at the start of the domain
+    , "ab@ example.com"
+
+    -- There can't be a space at the start of the TLD
+    , "ab@example. com"
     ]
 
 
