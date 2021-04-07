@@ -4,7 +4,7 @@ Parses email addresses safely
 
 # Demo
 
-A demo can be found on: [https://tricycle.github.io/elm-email/](https://tricycle.github.io/elm-email/)
+A demo can be found on: [https://bellroy.github.io/elm-email/](https://bellroy.github.io/elm-email/)
 
 # Motivation
 

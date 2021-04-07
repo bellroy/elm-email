@@ -1,9 +1,9 @@
 {
     "type": "package",
-    "name": "tricycle/elm-email",
+    "name": "bellroy/elm-email",
     "summary": "Parse email addresses safely",
     "license": "BSD-3-Clause",
-    "version": "1.0.4",
+    "version": "1.0.0",
     "exposed-modules": [
         "Email"
     ],
