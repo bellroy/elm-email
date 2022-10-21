@@ -118,11 +118,11 @@ parseLocalPart =
         |> getChompedString
         |> andThen
             (\localPart ->
-                if String.startsWith "." localPart || String.endsWith "." localPart || String.indexes ".." localPart /= [] then
-                    problem "localPart can't start or end with a dot, nor can there be double dots"
+                if String.startsWith "." localPart || String.endsWith "." localPart || String.contains ".." localPart then
+                    problem "Local part can't start or end with a dot, nor can there be double dots."
 
                 else if String.trim localPart /= localPart then
-                    problem "localPart can't be wrapped with whitespace"
+                    problem "Local part can't be wrapped with whitespace."
 
                 else
                     succeed localPart
@@ -144,7 +144,7 @@ parseDomain =
         |> andThen
             (\a ->
                 if String.length a < 1 then
-                    problem "Domain has to be atleast 1 character long."
+                    problem "Domain has to be at least 1 character long."
 
                 else
                     succeed a
@@ -167,5 +167,5 @@ parseTld =
                     succeed a
 
                 else
-                    problem "Tld needs to be at least 2 character long."
+                    problem "TLD needs to be at least 2 character long."
             )
